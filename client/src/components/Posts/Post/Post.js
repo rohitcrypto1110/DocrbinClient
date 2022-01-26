@@ -43,16 +43,16 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       )}
       <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+        {/* <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
       </div>
       <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+        {/* <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
           <Likes />
-        </Button>
+        </Button> */}
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
         <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
           <DeleteIcon fontSize="small" /> Delete

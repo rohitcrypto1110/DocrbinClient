@@ -7,7 +7,8 @@ import { createPost, updatePost } from '../../actions/posts';
 import useStyles from './styles';
 
 const Form = ({ currentId, setCurrentId }) => {
-  const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
+  const [postData, setPostData] = useState({ title: '', message: '', purpose: '',
+   audience: '', version: '', tags: '', selectedFile: '' });
   const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -19,7 +20,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(0);
-    setPostData({ title: '', message: '', tags: '', selectedFile: '' });
+    setPostData({ title: '', message: '', purpose: '', audience: '', version: '', tags: '', selectedFile: '' });
   };
 
   const handleSubmit = async (e) => {
@@ -37,21 +38,26 @@ const Form = ({ currentId, setCurrentId }) => {
   if (!user?.result?.name) {
     return (
       <Paper className={classes.paper}>
-        <Typography variant="h6" align="center">
-          Please Sign In to create your own memories and like other's memories.
+        <Typography variant="h8" align="center">
+          Please Sign In to upload your own documents and share with others, from anywhere , anytime !
         </Typography>
       </Paper>
     );
   }
 
+  
   return (
     <Paper className={classes.paper}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}</Typography>
+        <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Upload your Document'}</Typography>
         <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-        <TextField name="tags" variant="outlined" label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
-        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+        <TextField name="purpose" variant="outlined" label="Purpose" fullWidth multiline rows={4} value={postData.purpose} onChange={(e) => setPostData({ ...postData, purpose: e.target.value })} />
+        <TextField name="audience" variant="outlined" label="Intended Audience" fullWidth multiline rows={2} value={postData.audience} onChange={(e) => setPostData({ ...postData, audience: e.target.value })} />
+        <TextField name="version" variant="outlined" label="Version Number" fullWidth multiline rows={1} value={postData.version} onChange={(e) => setPostData({ ...postData, version: e.target.value })} />
+        <div className={classes.fileInput}>
+        <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+        </div>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
