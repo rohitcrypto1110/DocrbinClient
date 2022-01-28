@@ -26,7 +26,9 @@ export default makeStyles({
     position: 'absolute',
     top: '20px',
     left: '20px',
-    color: 'white',
+    color: 'rgba(92,64,51,1)',
+    fontWeight:'bold',
+    fontFamily: ['Roboto:700, 700, 700', 'sans-serif'],
   },
   mainContent: {
     color: 'black',
