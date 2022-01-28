@@ -20,6 +20,7 @@ export default makeStyles({
     borderRadius: '15px',
     height: '100%',
     position: 'relative',
+    backgroundColor: 'pink',
   },
   overlay: {
     position: 'absolute',
@@ -27,11 +28,15 @@ export default makeStyles({
     left: '20px',
     color: 'white',
   },
+  mainContent: {
+    color: 'black',
+    backgroundColor: 'black',
+  },
   overlay2: {
     position: 'absolute',
     top: '20px',
     right: '20px',
-    color: 'white',
+    color: 'black',
   },
   grid: {
     display: 'flex',
