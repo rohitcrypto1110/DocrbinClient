@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import postRoutes from './routes/posts.js';
 import userRouter from "./routes/user.js";
+import urlRouter from "./routes/url.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use('/posts', postRoutes);
 app.use("/user", userRouter);
+app.use("/url", urlRouter);
 
 const CONNECTION_URL ="mongodb+srv://admin:admin123@cluster0.nyyhl.mongodb.net/test?retryWrites=true&w=majority";
 const PORT = process.env.PORT|| 5000;
