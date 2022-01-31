@@ -28,22 +28,21 @@ const Post = ({ post, setCurrentId }) => {
     return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
   };
 
-  function handleShare() {
-    fetch('http://localhost:5000/url/getShortUrl',{
-            method: 'post',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(
-            {
-            	id : post._id,
-              userId : post._id,
-            })
-        })
-        .then(res=>res.json())
-        .then(data=>{
-        	alert(data);
-          console.log(data);
-        })
-        .catch(err=>alert(err));
+  function handleDownload(e) {
+    e.preventDefault();
+    axios({
+      method: "GET",
+      url: "http://localhost:5000/postMessage/selectedFile",
+      responseType: "blob"
+    }).then(response => {
+      this.setState({fileDownloading: true}, () => {
+        FileSaver.saveAs(response.data, data1);
+        console.log(response);
+      });
+    }).then( () => {
+      this.setState({fileDownloading: false});
+      console.log("completed");
+    });
   }
 
   function handleShare() {
@@ -76,12 +75,8 @@ const Post = ({ post, setCurrentId }) => {
         <InputLabel id="action-to-perform">Action</InputLabel><br></br>
           <Select>
             <MenuItem onClick={() => setCurrentId(post._id)} style={{ color: 'black' }} value={0}>Edit</MenuItem>
-<<<<<<< HEAD
             <MenuItem onClick={handleShare} value={1}> Share </MenuItem>
-=======
-            <MenuItem onClick={handleShare}value={1}> Share </MenuItem>
->>>>>>> 08de309926aef9efe2887e9680277892b6559782
-            <MenuItem value={2}> Download </MenuItem>
+            <MenuItem onCLick={handleDownload} value={2}> Download </MenuItem>
           </Select>
       </FormControl>
       </div>)}
@@ -97,9 +92,6 @@ const Post = ({ post, setCurrentId }) => {
       </CardContent>
       </div>
       <CardActions className={classes.cardActions}>
-        {/* <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
-          <Likes />
-        </Button> */}
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
         <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
           <DeleteIcon fontSize="small" /> Delete
