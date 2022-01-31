@@ -6,6 +6,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
+import axios from 'axios';
 
 import { likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles';
@@ -32,11 +33,11 @@ const Post = ({ post, setCurrentId }) => {
     e.preventDefault();
     axios({
       method: "GET",
-      url: "http://localhost:5000/postMessage/selectedFile",
+      url: "https://docrbin-server.herokuapp.com/postMessage/selectedFile",
       responseType: "blob"
     }).then(response => {
       this.setState({fileDownloading: true}, () => {
-        FileSaver.saveAs(response.data, data1);
+        //FileSaver.saveAs(response.data, data);
         console.log(response);
       });
     }).then( () => {
